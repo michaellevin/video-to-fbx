@@ -48,3 +48,22 @@ python3 /comfyui/main.py --listen 0.0.0.0
 ## Workflow
 
 - Файл workflow: `video_to_fbx_api_final.json`
+
+## Разница между workflow-файлами
+
+В проекте есть два JSON-файла с похожей логикой, но разным назначением:
+
+- `video_to_fbx_api_final.json` — UI-экспорт из ComfyUI (редакторный формат):
+  - содержит `nodes`, `links`, `groups`, позиции нод и служебные метаданные;
+  - удобен для редактирования и отладки workflow в интерфейсе ComfyUI;
+  - в текущем варианте использует `VHS_LoadVideo` (обычная загрузка видео в UI).
+
+- `sam_fbx_runpod.json` — API/runtime-формат для RunPod:
+  - упакован в структуру `input.workflow` с `class_type` и `inputs`;
+  - ориентирован на запуск в воркере и контейнерных путях;
+  - использует `VHS_LoadVideoPath` с путями вида `/runpod-volume/input/...`.
+
+Практически:
+
+- для разработки/правок в ComfyUI: `video_to_fbx_api_final.json`;
+- для продакшн-запуска в RunPod worker: `sam_fbx_runpod.json`.

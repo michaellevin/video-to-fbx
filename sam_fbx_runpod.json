@@ -1,0 +1,337 @@
+{
+  "input": {
+    "workflow": {
+  "2": {
+    "inputs": {
+      "model_path_override": "",
+      "precision": "auto",
+      "attention": "auto",
+      "load_dpvo": false
+    },
+    "class_type": "LoadGVHMRModels",
+    "_meta": {
+      "title": "Load GVHMR Models"
+    }
+  },
+  "11": {
+    "inputs": {
+      "npz_path": [
+        "16",
+        0
+      ],
+      "frame_skip": 1,
+      "mesh_color": "#4a9eff",
+      "smpl_viewer": ""
+    },
+    "class_type": "SMPLViewer",
+    "_meta": {
+      "title": "SMPL 3D Viewer"
+    }
+  },
+  "16": {
+    "inputs": {
+      "moving_camera": false,
+      "focal_length_mm": 0,
+      "bbox_scale": 1.2,
+      "vo_method": "simple_vo",
+      "vo_scale": 0.5,
+      "vo_step": 8,
+      "chunk_size": 32,
+      "video": [
+        "41",
+        0
+      ],
+      "video_mask": [
+        "45",
+        0
+      ],
+      "config": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "GVHMRInference",
+    "_meta": {
+      "title": "GVHMR Inference"
+    }
+  },
+  "28": {
+    "inputs": {
+      "text": "",
+      "duration": 0,
+      "smpl_params": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "HYMotionSMPLToData",
+    "_meta": {
+      "title": "HY-Motion SMPL to Data"
+    }
+  },
+  "29": {
+    "inputs": {
+      "npz_path": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "HYMotionNPZToSMPLParams",
+    "_meta": {
+      "title": "HY-Motion NPZ to SMPL_PARAMS"
+    }
+  },
+  "32": {
+    "inputs": {
+      "target_fbx": "/comfyui/custom_nodes/ComfyUI-MotionCapture/assets/mixamo.fbx",
+      "output_dir": "hymotion_retarget",
+      "filename_prefix": "retarget",
+      "mapping_file": "",
+      "yaw_offset": 0,
+      "neutral_fingers": true,
+      "unique_names": true,
+      "in_place": false,
+      "in_place_x": false,
+      "in_place_y": false,
+      "in_place_z": false,
+      "preserve_position": false,
+      "fps": [
+        "47",
+        0
+      ],
+      "target_pose_type": "T-Pose",
+      "motion_data": [
+        "28",
+        0
+      ]
+    },
+    "class_type": "HYMotionRetargetFBX",
+    "_meta": {
+      "title": "WU_OUTPUT_FBX"
+    }
+  },
+  "33": {
+    "inputs": {
+      "model_file": [
+        "32",
+        0
+      ],
+      "image": ""
+    },
+    "class_type": "Preview3D",
+    "_meta": {
+      "title": "Предварительный просмотр 3D"
+    }
+  },
+  "41": {
+    "inputs": {
+      "fps": [
+        "47",
+        0
+      ],
+      "images": [
+        "87",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Создать видео"
+    }
+  },
+  "44": {
+    "inputs": {
+      "mask": [
+        "64",
+        0
+      ]
+    },
+    "class_type": "MaskToImage",
+    "_meta": {
+      "title": "Преобразовать маску в изображение"
+    }
+  },
+  "45": {
+    "inputs": {
+      "fps": [
+        "47",
+        0
+      ],
+      "images": [
+        "44",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Создать видео"
+    }
+  },
+  "47": {
+    "inputs": {
+      "value": 25
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "WU_NUMBER_FRAMERATE"
+    }
+  },
+  "49": {
+    "inputs": {
+      "value": 1920
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "WU_NUMBER_WIDTH"
+    }
+  },
+  "50": {
+    "inputs": {
+      "value": 1080
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "WU_NUMBER_HEIGHT"
+    }
+  },
+  "54": {
+    "inputs": {
+      "filename_prefix": "video/ComfyUI",
+      "format": "auto",
+      "codec": "auto",
+      "video": [
+        "45",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "Сохранить видео"
+    }
+  },
+  "57": {
+    "inputs": {
+      "precision": "bf16",
+      "attention": "sdpa",
+      "compile": true
+    },
+    "class_type": "LoadSAM3Model",
+    "_meta": {
+      "title": "(down)Load SAM3 Model"
+    }
+  },
+  "58": {
+    "inputs": {
+      "prompt_mode": "text",
+      "text_prompt": [
+        "63",
+        0
+      ],
+      "frame_idx": 0,
+      "score_threshold": 0.3,
+      "video_frames": [
+        "87",
+        0
+      ]
+    },
+    "class_type": "SAM3VideoSegmentation",
+    "_meta": {
+      "title": "SAM3 Video Segmentation"
+    }
+  },
+  "59": {
+    "inputs": {
+      "start_frame": 0,
+      "end_frame": -1,
+      "direction": "forward",
+      "sam3_model": [
+        "57",
+        0
+      ],
+      "video_state": [
+        "58",
+        0
+      ]
+    },
+    "class_type": "SAM3Propagate",
+    "_meta": {
+      "title": "SAM3 Propagate"
+    }
+  },
+  "63": {
+    "inputs": {
+      "value": "person"
+    },
+    "class_type": "PrimitiveString",
+    "_meta": {
+      "title": "Строка"
+    }
+  },
+  "64": {
+    "inputs": {
+      "obj_id": -1,
+      "plot_all_masks": true,
+      "masks": [
+        "59",
+        0
+      ],
+      "video_state": [
+        "59",
+        2
+      ],
+      "scores": [
+        "59",
+        1
+      ]
+    },
+    "class_type": "SAM3VideoOutput",
+    "_meta": {
+      "title": "SAM3 Video Output"
+    }
+  },
+  "74": {
+    "inputs": {
+      "npz_path": [
+        "16",
+        0
+      ],
+      "camera_npz_path": [
+        "16",
+        1
+      ],
+      "mesh_color": "#4a9eff",
+      "smpl_camera_viewer": ""
+    },
+    "class_type": "SMPLCameraViewer",
+    "_meta": {
+      "title": "SMPL Viewer with Camera"
+    }
+  },
+  "87": {
+    "inputs": {
+      "video": "/runpod-volume/input/puss_in_boots.mp4",
+      "force_rate": [
+        "47",
+        0
+      ],
+      "custom_width": [
+        "49",
+        0
+      ],
+      "custom_height": [
+        "50",
+        0
+      ],
+      "frame_load_cap": 0,
+      "skip_first_frames": 0,
+      "select_every_nth": 1,
+      "format": "AnimateDiff"
+    },
+    "class_type": "VHS_LoadVideoPath",
+    "_meta": {
+      "title": "AAA"
+    }
+  }
+}
+  }
+}
